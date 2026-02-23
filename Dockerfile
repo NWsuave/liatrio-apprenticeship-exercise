@@ -1,11 +1,15 @@
-FROM golang:1.26
+#Build
+FROM golang:1.26-alpine AS builder
 
 WORKDIR /app
-
-COPY main.go go.mod go.sum ./
+COPY go.mod go.sum .
 RUN go mod download
+COPY main.go .
 
-RUN go build -o server .
-EXPOSE 3000
+RUN CGO_ENABLED=0 go build -o server .
 
+#Run
+FROM scratch AS final
+WORKDIR /app
+COPY --from=Builder /app/server . 
 CMD ["./server"]
