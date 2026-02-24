@@ -1,0 +1,20 @@
+name: ci
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+
+      - name: Build Docker image
+        run: make ci-build
+
+      - name: Run container on port 80
+        run: make ci-run 
+
+      - name: run tests
+        uses: liatrio/github-actions/apprentice-action@master
