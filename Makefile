@@ -14,3 +14,4 @@ ci-build:
 
 ci-run:
 	docker run -d -p 80:3000 $(IMAGE):$(TAG)
+	curl -f --retry 10 --retry-delay 1 --retry-connrefused http://localhost
