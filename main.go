@@ -9,6 +9,7 @@ func rootHandler(c fiber.Ctx) error{
 	return c.JSON(fiber.Map{
 		"message": "My name is Nico Whitmarsh",
 		"timestamp": time.Now().UnixMilli(),
+		"school": "CSU Chico",
 	})
 }
 
