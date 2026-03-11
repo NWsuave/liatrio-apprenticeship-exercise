@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
 
       - name: Build Docker image
-        run: docker buildx build -t ${{ env.IMAGE }} --load .
+        run: docker build -t ${{ env.IMAGE }} .
 
       - name: Run container on port 80
         run: docker run -d --name ${{ env.CONTAINER_NAME }} -p 80:3000 ${{ env.IMAGE }}
@@ -42,4 +42,5 @@ jobs:
           script: |
             docker pull ${{ env.IMAGE }}
             docker rm -f ${{ env.CONTAINER_NAME }} || true
-            docker run -d --name ${{ env.CONTAINER_NAME }} -p 80:3000 ${{ env.IMAGE }}
+            docker run -d --name ${{ env.CONTAINER_NAME }} -p 80:3000 --restart unless-stopped ${{ env.IMAGE }}
+            docker image prune -f || true
