@@ -10,6 +10,7 @@ func rootHandler(c fiber.Ctx) error{
 		"message": "My name is Nico Whitmarsh",
 		"timestamp": time.Now().UnixMilli(),
 		"university": "CSU Chico",
+		"company": "Liatrio",
 	})
 }
 
